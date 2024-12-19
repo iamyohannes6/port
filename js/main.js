@@ -31,22 +31,42 @@ const initSwiper = () => {
 // Pinterest Feed Integration
 const loadPinterestFeed = async () => {
     const pinterestFeed = document.getElementById('pinterest-feed');
+    if (!pinterestFeed) {
+        console.error('Pinterest feed element not found');
+        return;
+    }
     
     // Show loading state
     pinterestFeed.innerHTML = `
         <div class="swiper-slide loading-slide">
             <div class="loading-spinner"></div>
+            <p class="loading-text">Loading Pinterest feed...</p>
         </div>
     `;
 
     try {
-        const response = await fetch('/.netlify/functions/pinterest');
-        if (!response.ok) throw new Error('Failed to fetch Pinterest feed');
+        console.log('Fetching Pinterest feed...');
+        const response = await fetch('/.netlify/functions/pinterest', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            credentials: 'same-origin'
+        });
+        
+        console.log('Pinterest API response status:', response.status);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         
         const data = await response.json();
+        console.log('Pinterest API response:', data);
         
-        if (!data.success || !data.pins.length) {
-            throw new Error('No pins available');
+        if (!data.success || !data.pins?.length) {
+            console.error('No pins available:', data.error || 'Unknown error');
+            throw new Error(data.error || 'No pins available');
         }
 
         // Clear loading state
@@ -56,13 +76,22 @@ const loadPinterestFeed = async () => {
         data.pins.forEach(pin => {
             const slide = document.createElement('div');
             slide.className = 'swiper-slide';
+            
+            // Create the HTML string with proper escaping
+            const title = pin.title ? escapeHtml(pin.title) : 'View on Pinterest';
+            const description = pin.description ? escapeHtml(pin.description) : '';
+            const imageAlt = pin.title ? escapeHtml(pin.title) : 'Pinterest Pin';
+            
             slide.innerHTML = `
-                <a href="${pin.link}" target="_blank" rel="noopener noreferrer" class="pin-link">
+                <a href="${escapeHtml(pin.link)}" target="_blank" rel="noopener noreferrer" class="pin-link">
                     <div class="pin-image-container">
-                        <img src="${pin.imageUrl}" alt="${pin.title}" loading="lazy">
+                        <img src="${escapeHtml(pin.imageUrl)}" 
+                             alt="${imageAlt}" 
+                             loading="lazy"
+                             onerror="this.onerror=null; this.src='https://via.placeholder.com/600x400/1a1a1a/00f5d4?text=Image+Not+Available';">
                         <div class="pin-overlay">
-                            <h3>${pin.title}</h3>
-                            <p>${pin.description}</p>
+                            <h3>${title}</h3>
+                            ${description ? `<p>${description}</p>` : ''}
                         </div>
                     </div>
                 </a>
@@ -70,12 +99,30 @@ const loadPinterestFeed = async () => {
             pinterestFeed.appendChild(slide);
         });
 
-        initSwiper();
+        console.log('Initializing Swiper...');
+        if (typeof Swiper !== 'undefined') {
+            initSwiper();
+            console.log('Swiper initialized successfully');
+        } else {
+            console.error('Swiper is not defined');
+            throw new Error('Swiper library not loaded');
+        }
     } catch (error) {
         console.error('Error loading Pinterest feed:', error);
         loadPlaceholderContent();
     }
 };
+
+// Helper function to escape HTML and prevent XSS
+function escapeHtml(unsafe) {
+    if (!unsafe) return '';
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 // Load placeholder content if Pinterest feed fails
 const loadPlaceholderContent = () => {
