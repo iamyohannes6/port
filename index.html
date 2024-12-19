@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yohannes Goitom - Creative Director, Brand Designer & Graphic Designer. Turning imagination into experiences people love.">
+    <meta property="og:title" content="Yohannes Goitom - Creative Portfolio">
+    <meta property="og:description" content="Creative Director and Designer specializing in brand design and graphic design">
+    <meta property="og:type" content="website">
+    
+    <title>Yohannes Goitom - Creative Portfolio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Swiper.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-theme">
+    <nav class="floating-nav">
+        <div class="nav-container">
+            <div class="logo">YG</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="gradient-text">Yohannes Goitom</h1>
+                <h2>Creative Director, Brand Designer & Graphic Designer</h2>
+                <p class="tagline">Turning imagination into experiences people love.</p>
+                <div class="cta-buttons">
+                    <a href="#work" class="primary-btn">View Work</a>
+                    <a href="/assets/cv.pdf" class="secondary-btn" download>Download CV</a>
+                </div>
+            </div>
+            <div class="hero-background">
+                <div class="gradient-overlay"></div>
+                <div class="grid-pattern"></div>
+            </div>
+        </section>
+
+        <section id="work" class="portfolio-gallery">
+            <h2>Featured Work</h2>
+            <div class="swiper">
+                <div class="swiper-wrapper" id="pinterest-feed">
+                    <!-- Pinterest feed will be loaded here -->
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+        </section>
+
+        <section id="skills" class="skills-section">
+            <h2>Skills & Tools</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Design Tools</h3>
+                    <div class="tools">
+                        <div class="tool">
+                            <img src="assets/icons/icons8-adobe-illustrator-64.png" alt="Adobe Illustrator">
+                            <p>Adobe Illustrator</p>
+                        </div>
+                        <div class="tool">
+                            <img src="assets/icons/icons8-adobe-photoshop-48.png" alt="Adobe Photoshop">
+                            <p>Adobe Photoshop</p>
+                        </div>
+                        <div class="tool">
+                            <img src="assets/icons/icons8-adobe-premiere-pro-48.png" alt="Adobe Premiere Pro">
+                            <p>Adobe Premiere Pro</p>
+                        </div>
+                        <div class="tool">
+                            <img src="assets/icons/icons8-affinity-designer-50.png" alt="Affinity Designer">
+                            <p>Affinity Designer</p>
+                        </div>
+                        <div class="tool">
+                            <img src="assets/icons/icons8-figma-50.png" alt="Figma">
+                            <p>Figma</p>
+                        </div>
+                        <div class="tool">
+                            <img src="assets/icons/icons8-adobe-after-effects-48.png" alt="Adobe After Effects">
+                            <p>Adobe After Effects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <section id="contact" class="contact-section">
+                <h2>Get in Touch</h2>
+                <div class="contact-container">
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required placeholder="Your Email">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" required placeholder="Your Message"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="https://et.linkedin.com/in/yohannes-goitom-1b29022ab" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.pinterest.com/iamyohannes6/" target="_blank" rel="noopener noreferrer"><i class="fab fa-pinterest"></i></a>
+                        <a href="https://www.instagram.com/iamyohannes6/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me/iamyohannes" target="_blank" rel="noopener noreferrer"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+            </section>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Yohannes Goitom. All rights reserved. | <a href="privacy-policy.html">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
