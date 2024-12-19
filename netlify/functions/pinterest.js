@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
-const PINTEREST_APP_ID = '1509750';
-const PINTEREST_ACCESS_TOKEN = '1b2dbb4c1a9cc55b81f0d231806f7c7b0a298b23';
+const PINTEREST_APP_ID = process.env.PINTEREST_APP_ID;
+const PINTEREST_ACCESS_TOKEN = process.env.PINTEREST_ACCESS_TOKEN;
 
 const BOARD_IDS = [
     'iamyohannes6/made-by-me-winball-betting',
@@ -10,6 +10,21 @@ const BOARD_IDS = [
 ];
 
 exports.handler = async (event) => {
+    if (!PINTEREST_ACCESS_TOKEN || !PINTEREST_APP_ID) {
+        console.error('Pinterest credentials not configured');
+        return {
+            statusCode: 500,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify({
+                success: false,
+                error: 'Pinterest API not configured'
+            })
+        };
+    }
+
     try {
         // Fetch pins from all boards
         const allPins = await Promise.all(
